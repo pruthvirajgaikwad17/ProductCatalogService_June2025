@@ -18,6 +18,7 @@ public class ProductController {
         product.setName("Product 1");
         List<Product> productList = new ArrayList<>();
         productList.add(product);
+        System.out.println("check branch merge and pr");
         return productList;
     }
 }
