@@ -1,8 +1,10 @@
 package com.example.productcatalogservice_june2025.controllers;
 
+import com.example.productcatalogservice_june2025.dtos.ProductDto;
 import com.example.productcatalogservice_june2025.models.Product;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.example.productcatalogservice_june2025.services.IProductService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,15 +12,23 @@ import java.util.List;
 @RestController
 public class ProductController {
 
+    @Autowired
+    IProductService productService;
+
     @GetMapping("/products")
-    public List<Product> getAllProducts() {
+    public List<ProductDto> getAllProducts() {
         // Dummy response
-        Product product = new Product();
-        product.setId(1L);
-        product.setName("Product 1");
-        List<Product> productList = new ArrayList<>();
-        productList.add(product);
-        System.out.println("check branch merge and pr");
-        return productList;
+        return null;
+    }
+
+    // Read for @PathVariable, @RequestParam, @QueryParam
+    @GetMapping("/products/{id}")
+    public ProductDto getProductById(@PathVariable("id") Long productId) {
+        return null;
+    }
+
+    @PostMapping("products")
+    public ProductDto createProduct(@RequestBody ProductDto productDto) {
+        return productDto;
     }
 }
