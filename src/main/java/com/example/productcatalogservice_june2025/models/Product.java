@@ -16,5 +16,6 @@ public class Product extends BaseModel {
 
     private Category category;
 
-
+    // Related to Business
+    private Boolean isPrimeSaleSpecific;
 }
