@@ -7,5 +7,6 @@ import java.util.List;
 public interface IProductService {
     Product getProductById(Long Id);
     Product createProduct(Product product);
-    List<Product> getAllProducts();
+    Product replaceProduct(Product product, Long id);
+    List<Product> getAllProducts(); // This is a HW
 }
