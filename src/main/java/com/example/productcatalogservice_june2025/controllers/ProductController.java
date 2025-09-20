@@ -6,6 +6,7 @@ import com.example.productcatalogservice_june2025.models.Category;
 import com.example.productcatalogservice_june2025.models.Product;
 import com.example.productcatalogservice_june2025.services.IProductService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -18,7 +19,12 @@ import java.util.List;
 public class ProductController {
 
     @Autowired
+//    @Qualifier("storageProductService")
     IProductService productService;
+
+//    @Autowired
+//    @Qualifier("fakeStoreProductService")
+//    IProductService productService2;
 
     @GetMapping("/products")
     public List<ProductDto> getAllProducts() {
