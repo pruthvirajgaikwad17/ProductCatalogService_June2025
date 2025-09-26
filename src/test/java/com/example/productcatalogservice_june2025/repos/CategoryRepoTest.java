@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 
 @SpringBootTest  // Bootstraps Spring context
@@ -22,5 +23,16 @@ class CategoryRepoTest {
              for (Product p : categoryOptional.get().getProducts()) {
                 System.out.println(p);
             }
+    }
+
+    @Test
+    @Transactional
+    public void testSubselect() {
+        List<Category> categoryList = categoryRepo.findAll();
+        for (Category c : categoryList) {
+            for (Product p : c.getProducts()) {
+                System.out.println(p.getName());
+            }
+        }
     }
 }
