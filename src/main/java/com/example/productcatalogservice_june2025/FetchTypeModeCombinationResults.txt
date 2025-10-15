@@ -10,7 +10,7 @@ EAGER            SELECT             Asked For Products - Queries - 2 select quer
 ---
 
 LAZY             JOIN               Asked For Products - Queries - 1 left join queries
-                                    Not Asked For Products - Queries - 1 left join queires
+                             p       Not Asked For Products - Queries - 1 left join queires
 
 
 

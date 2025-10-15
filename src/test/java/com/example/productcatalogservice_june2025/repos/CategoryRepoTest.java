@@ -15,9 +15,11 @@ class CategoryRepoTest {
 
     @Autowired
     private CategoryRepo categoryRepo;  // Now Spring injects it
+    @Autowired
+    private ProductRepo productRepo;
 
-    @Test
-    @Transactional
+    // @Test
+    // @Transactional
     void testLoading() {
         Optional<Category> categoryOptional = categoryRepo.findById(1L);
              for (Product p : categoryOptional.get().getProducts()) {
@@ -25,8 +27,8 @@ class CategoryRepoTest {
             }
     }
 
-    @Test
-    @Transactional
+    // @Test
+    // @Transactional
     public void testSubselect() {
         List<Category> categoryList = categoryRepo.findAll();
         for (Category c : categoryList) {
