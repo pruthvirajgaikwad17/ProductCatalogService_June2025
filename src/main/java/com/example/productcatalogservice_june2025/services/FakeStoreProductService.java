@@ -8,6 +8,8 @@ import com.example.productcatalogservice_june2025.models.Category;
 import com.example.productcatalogservice_june2025.models.Product;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.client.RestTemplateBuilder;
+import org.springframework.context.annotation.Primary;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,7 +22,9 @@ import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
 
+// @Primary mean this service will be used
 @Service
+@Primary
 public class FakeStoreProductService implements IProductService{
 
     @Autowired
@@ -29,12 +33,38 @@ public class FakeStoreProductService implements IProductService{
     @Autowired
     private FakeStoreApiClient  fakeStoreApiClient;
 
+    private RedisTemplate<String, Object> redisTemplate;
+
+    public FakeStoreProductService(RedisTemplate<String, Object> redisTemplate) {
+        this.redisTemplate = redisTemplate;
+    }
+
     @Override
     public Product getProductById(Long id) {
+        // Integrate Redis here
+        // First check if the product is present in the redis cache or not
+        Product product = (Product) redisTemplate.opsForHash().get("PRODUCTS", "PRODUCT_"+id);
+
+        if (product != null) {
+            // Redis cache hit
+            return product;
+        }
+
+        // Get the Product from DB and store it in the cache
+
         FakeStoreProductDto output = fakeStoreApiClient.getFakeStoreProduct(id);
         if(output==null) return null;
 
-        return from(output);
+        product = from(output);
+
+        // Before returning the product we will store it in the redis cache
+        // First parameter is the name of the hashmap as there are multiple hashmap in the redis
+        // Second parameter is the key we want to insert
+        // Third is the value we store and return when we get the value
+        // opsForHash - This means all the data will be stored in hashing format
+        redisTemplate.opsForHash().put("PRODUCTS", "PRODUCT_"+id, product);
+
+        return product;
     }
 
     @Override
