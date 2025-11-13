@@ -70,6 +70,11 @@ public class ProductController {
         return from(output);
     }
 
+    @GetMapping("/products/{productId}/{userId}")
+    public ProductDto getProductDetailsBasedOnUserScope(@PathVariable Long productId, @PathVariable Long userId) {
+        return from(productService.getProductsBasedOnUserScope(productId, userId));
+    }
+
     private Product  from(ProductDto productDto) {
         Product product = new Product();
         product.setId(productDto.getId());

@@ -30,4 +30,6 @@ public interface ProductRepo extends JpaRepository<Product, Long> {
 //   @Query("select p.name from Product p where p.id = ?1") positional way    @Query("select p.name from Product p where p.id = ?1") // positional way
     @Query("SELECT p.name FROM Product p WHERE p.id=:id") // name association
     String getMeNameOfMyFavouriteProductById(Long id);
+
+    Long id(Long id);
 }

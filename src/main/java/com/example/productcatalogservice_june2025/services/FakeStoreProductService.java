@@ -24,7 +24,6 @@ import java.util.List;
 
 // @Primary mean this service will be used
 @Service
-@Primary
 public class FakeStoreProductService implements IProductService{
 
     @Autowired
@@ -95,6 +94,11 @@ public class FakeStoreProductService implements IProductService{
         return fakeStoreProducts.stream()
                 .map(this::from)   // convert each DTO to Product
                 .toList();
+    }
+
+    @Override
+    public Product getProductsBasedOnUserScope(Long productId, Long userId) {
+        return null;
     }
 
     private Product from(FakeStoreProductDto fakeStoreProductDto) {
